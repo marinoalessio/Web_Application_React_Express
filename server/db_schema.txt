@@ -1,0 +1,26 @@
+CREATE TABLE courses(
+	code varchar(255) primary key,
+	name varchar(255),
+	credits unsigned tinyint,
+	max_students unsigned smallint,
+	propaedeutic varchar(255)
+);
+
+CREATE TABLE "incompatibilities" (
+	"code"	varchar(255),
+	"reference_code" varchar(255),
+	FOREIGN KEY(reference_code) REFERENCES courses(code)
+	PRIMARY KEY("code")
+);
+
+CREATE TABLE IF NOT EXISTS "users" (
+	"id"	INTEGER NOT NULL,
+	"email"	TEXT NOT NULL,
+	"name"	TEXT,
+	"hash"	TEXT NOT NULL,
+	"salt"	TEXT NOT NULL,
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
+
+
+
