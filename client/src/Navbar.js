@@ -1,11 +1,12 @@
 import './App.css';
 import { Nav, Navbar, Container, Popover, Overlay, Button } from 'react-bootstrap';
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 
-
-function Profile() {
+function Profile(props) {
     const [show, setShow] = useState(false);
     const [target, setTarget] = useState(null);
+    const navigate = useNavigate();
 
     const handleClick = (event) => {
         setShow(!show);
@@ -14,7 +15,11 @@ function Profile() {
 
     return (
         <div>
-            <Button onClick={handleClick} variant="none"><i className="bi bi-person-circle p-1 text-light m-0"></i></Button>
+            {props.loggedIn ? <strong className="me-3 text-white">Hello, {props.user.name}</strong> : false}
+            <Button onClick={handleClick} variant="none">
+
+                <i className="bi bi-person-circle p-1 text-light m-0"></i>
+            </Button>
             <Overlay
                 show={show}
                 target={target}
@@ -22,9 +27,13 @@ function Profile() {
                 containerPadding={20}
             >
                 <Popover id="popover-contained">
-                    <Popover.Header as="h3">Effettua il login</Popover.Header>
+                    <Popover.Header as="h3">
+                        Personal Area
+                    </Popover.Header>
                     <Popover.Body>
-                        <strong>Login</strong>
+                        {props.loggedIn ?
+                            <Button variant="none" onClick={() => { navigate('/logout') }}>Logout</Button> :
+                            <Button variant="none" onClick={() => { navigate('/login') }}>Login</Button>}
                     </Popover.Body>
                 </Popover>
             </Overlay>
@@ -32,16 +41,17 @@ function Profile() {
     );
 }
 
-function NavBar() {
+function NavBar(props) {
+    const navigate = useNavigate();
 
     return (
         <>
             <Navbar bg="primary" variant="dark" className="py-0">
                 <Container>
-                    
-                    <Navbar.Brand href="#home">Piano di Studi</Navbar.Brand>
-                    <Nav.Link href="#home" className="end-50">
-                        <Profile />
+
+                    <Navbar.Brand onClick={() => { navigate('/') }}>Piano di Studi</Navbar.Brand>
+                    <Nav.Link className="end-50">
+                        <Profile loggedIn={props.loggedIn} user={props.user} />
                     </Nav.Link>
 
                 </Container>
