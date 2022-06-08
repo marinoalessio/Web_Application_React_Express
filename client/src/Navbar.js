@@ -16,12 +16,16 @@ function NavBar(props) {
                         <Nav >
                             {props.loggedIn ? <strong className="m-auto me-4 text-white">Hello, {props.user.name}</strong> : false}
                             <NavDropdown title={<i className="bi bi-person-circle p-1 text-light m-0"></i>} id="basic-nav-dropdown" className="me-5">
-                                { props.loggedIn ? <NavDropdown.Item onClick={() => { navigate('/create-study-plan') }}>Create Study Plan</NavDropdown.Item> : false }
-                                <NavDropdown.Divider />
-                                {props.loggedIn ? 
-                                <NavDropdown.Item onClick={() => { navigate('/logout') }}>Logout</NavDropdown.Item> : 
-                                <NavDropdown.Item onClick={() => { navigate('/login') }}>Login</NavDropdown.Item>}
-                                
+                                {props.loggedIn ? <>
+                                <NavDropdown.Item onClick={() => { navigate('/create-study-plan') }}>
+                                    Create Study Plan
+                                </NavDropdown.Item>
+                                <NavDropdown.Divider /></> : false }
+
+                                {props.loggedIn ?
+                                    <NavDropdown.Item onClick={() => { navigate('/logout') }}>Logout</NavDropdown.Item> :
+                                    <NavDropdown.Item onClick={() => { navigate('/login') }}>Login</NavDropdown.Item>}
+
                             </NavDropdown>
                         </Nav>
 
