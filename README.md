@@ -272,7 +272,7 @@ Presenta le informazioni relative a codice del corso, nome, crediti, numero di s
 
 ## Screenshot
 
-![Screenshot](./img/screenshot.png)
+![Screenshot](./screenshot.png)
 
 ## Users Credentials
 
